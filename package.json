@@ -1,14 +1,48 @@
 {
   "name": "emmetblocks",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "WordPress plugin to generate block layouts using Emmet syntax",
   "main": "build/index.js",
+  "author": "TinkerGrove",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://tinkergrove.com/emmetblocks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tinkergrove/emmetblocks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tinkergrove/emmetblocks/issues"
+  },
   "scripts": {
     "start": "wp-scripts start",
-    "build": "wp-scripts build"
+    "build": "wp-scripts build",
+    "build:production": "wp-scripts build --mode=production",
+    "lint": "wp-scripts lint-js src",
+    "lint:fix": "wp-scripts lint-js src --fix",
+    "lint:css": "wp-scripts lint-style 'src/**/*.css'",
+    "lint:css:fix": "wp-scripts lint-style 'src/**/*.css' --fix",
+    "format": "wp-scripts format src",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "test": "wp-scripts test-unit-js",
+    "test:watch": "wp-scripts test-unit-js --watch",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint && npm run test",
+    "release": "npm run build:production && npm run plugin-zip"
   },
+  "files": [
+    "assets",
+    "build",
+    "languages",
+    "src",
+    "emmetblocks.php",
+    "readme.txt"
+  ],
   "devDependencies": {
-    "@wordpress/scripts": "^26.0.0"
+    "@wordpress/scripts": "^26.0.0",
+    "@wordpress/eslint-plugin": "^14.0.0"
   },
   "dependencies": {
     "@wordpress/commands": "*",
@@ -17,6 +51,17 @@
     "@wordpress/element": "*",
     "@wordpress/block-editor": "*",
     "@wordpress/blocks": "*",
+    "@wordpress/i18n": "*",
+    "@wordpress/data": "*",
+    "@wordpress/plugins": "*",
     "emmet": "^2.4.6"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.14.4"
+  },
+  "wp-env": {
+    "plugin-dir": "emmetblocks",
+    "plugin-name": "EmmetBlocks"
   }
 }

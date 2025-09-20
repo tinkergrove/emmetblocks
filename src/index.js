@@ -30,47 +30,47 @@ import expand from 'emmet';
  */
 const tagToBlock = {
 	// Basic layout elements
-	'div': 'core/group',
-	'section': 'core/group',
-	'article': 'core/group',
-	'header': 'core/group',
-	'main': 'core/group',
-	'footer': 'core/group',
-	'aside': 'core/group',
+	div: 'core/group',
+	section: 'core/group',
+	article: 'core/group',
+	header: 'core/group',
+	main: 'core/group',
+	footer: 'core/group',
+	aside: 'core/group',
 
 	// Text elements
-	'p': 'core/paragraph',
-	'span': 'core/paragraph',
-	'h1': 'core/heading',
-	'h2': 'core/heading',
-	'h3': 'core/heading',
-	'h4': 'core/heading',
-	'h5': 'core/heading',
-	'h6': 'core/heading',
+	p: 'core/paragraph',
+	span: 'core/paragraph',
+	h1: 'core/heading',
+	h2: 'core/heading',
+	h3: 'core/heading',
+	h4: 'core/heading',
+	h5: 'core/heading',
+	h6: 'core/heading',
 
 	// Media elements
-	'img': 'core/image',
-	'video': 'core/video',
+	img: 'core/image',
+	video: 'core/video',
 
 	// List elements
-	'ul': 'core/list',
-	'ol': 'core/list',
-	'li': 'core/list',
+	ul: 'core/list',
+	ol: 'core/list',
+	li: 'core/list',
 
 	// Other elements
-	'code': 'core/code',
-	'blockquote': 'core/quote',
-	'quote': 'core/quote',
+	code: 'core/code',
+	blockquote: 'core/quote',
+	quote: 'core/quote',
 
 	// Layout components (custom mappings)
-	'col': 'core/column',
-	'cols': 'core/columns',
-	'row': 'core/group',      // Will be configured with horizontal flex layout
-	'stack': 'core/group',    // Will be configured with vertical flex layout
-	'sep': 'core/separator',
-	'separator': 'core/separator',
-	'sp': 'core/spacer',
-	'spacer': 'core/spacer',
+	col: 'core/column',
+	cols: 'core/columns',
+	row: 'core/group', // Will be configured with horizontal flex layout
+	stack: 'core/group', // Will be configured with vertical flex layout
+	sep: 'core/separator',
+	separator: 'core/separator',
+	sp: 'core/spacer',
+	spacer: 'core/spacer',
 };
 
 /**
@@ -82,10 +82,10 @@ const tagToBlock = {
  * @param {string} html - The HTML string to parse
  * @returns {Array} Array of WordPress block objects
  */
-const parseHTMLToBlocks = (html) => {
+const parseHTMLToBlocks = ( html ) => {
 	const parser = new DOMParser();
-	const doc = parser.parseFromString(html, 'text/html');
-	return Array.from(doc.body.children).map(htmlToBlock);
+	const doc = parser.parseFromString( html, 'text/html' );
+	return Array.from( doc.body.children ).map( htmlToBlock );
 };
 
 /**
@@ -98,58 +98,74 @@ const parseHTMLToBlocks = (html) => {
  * @param {Element} element - The HTML element to convert
  * @returns {Object} WordPress block object with type, attributes, and innerBlocks
  */
-const htmlToBlock = (element) => {
+const htmlToBlock = ( element ) => {
 	const tag = element.tagName.toLowerCase();
-	const blockType = tagToBlock[tag] || 'core/group';
+	const blockType = tagToBlock[ tag ] || 'core/group';
 	const attributes = {};
 
 	// Handle CSS classes and IDs
-	if (element.className) {
+	if ( element.className ) {
 		attributes.className = element.className;
 	}
-	if (element.id) {
+	if ( element.id ) {
 		attributes.anchor = element.id;
 	}
 
 	// Special handling for Group blocks with semantic HTML elements
-	if (blockType === 'core/group') {
-		if (['header', 'main', 'footer', 'section', 'aside', 'article'].includes(tag)) {
+	if ( blockType === 'core/group' ) {
+		if (
+			[
+				'header',
+				'main',
+				'footer',
+				'section',
+				'aside',
+				'article',
+			].includes( tag )
+		) {
 			// Use semantic HTML tag for these elements
 			attributes.tagName = tag;
-		} else if (tag === 'row') {
+		} else if ( tag === 'row' ) {
 			// Configure horizontal flex layout for row elements
 			attributes.layout = { type: 'flex', orientation: 'horizontal' };
-		} else if (tag === 'stack') {
+		} else if ( tag === 'stack' ) {
 			// Configure vertical flex layout for stack elements
 			attributes.layout = { type: 'flex', orientation: 'vertical' };
 		}
 	}
 
 	// Special handling for List blocks
-	if (blockType === 'core/list') {
-		if (tag === 'ol') {
+	if ( blockType === 'core/list' ) {
+		if ( tag === 'ol' ) {
 			// Mark as ordered list
 			attributes.ordered = true;
 		}
 
 		// For ul/ol elements, collect all li children and create a single list block
-		const liChildren = Array.from(element.children).filter(child => child.tagName.toLowerCase() === 'li');
-		if (liChildren.length > 0) {
-			attributes.values = liChildren.map(li => `<li>${li.textContent || ''}</li>`).join('');
-			return createBlock(blockType, attributes, []);
+		const liChildren = Array.from( element.children ).filter(
+			( child ) => child.tagName.toLowerCase() === 'li'
+		);
+		if ( liChildren.length > 0 ) {
+			attributes.values = liChildren
+				.map( ( li ) => `<li>${ li.textContent || '' }</li>` )
+				.join( '' );
+			return createBlock( blockType, attributes, [] );
 		}
 	}
 
 	// Handle text content for text-based blocks
 	const textContent = element.textContent.trim();
-	if (textContent && ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'code'].includes(tag)) {
+	if (
+		textContent &&
+		[ 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'code' ].includes( tag )
+	) {
 		attributes.content = textContent;
 	}
 
 	// Recursively process child elements
-	const innerBlocks = Array.from(element.children).map(htmlToBlock);
+	const innerBlocks = Array.from( element.children ).map( htmlToBlock );
 
-	return createBlock(blockType, attributes, innerBlocks);
+	return createBlock( blockType, attributes, innerBlocks );
 };
 
 /**
@@ -163,23 +179,23 @@ const htmlToBlock = (element) => {
  */
 const EmmetBlocks = () => {
 	// Modal state management
-	const [isOpen, setIsOpen] = useState(false);
-	const [emmetInput, setEmmetInput] = useState('');
+	const [ isOpen, setIsOpen ] = useState( false );
+	const [ emmetInput, setEmmetInput ] = useState( '' );
 
 	// WordPress block editor integration
-	const { insertBlocks } = useDispatch(blockEditorStore);
+	const { insertBlocks } = useDispatch( blockEditorStore );
 
 	// Register command palette integration
-	useCommand({
+	useCommand( {
 		name: 'emmetblocks/emmet',
-		label: __('EmmetBlocks'),
+		label: __( 'EmmetBlocks' ),
 		icon: code,
-		callback: ({ close }) => {
-			setIsOpen(true);
+		callback: ( { close } ) => {
+			setIsOpen( true );
 			close();
 		},
-		context: 'site-editor'
-	});
+		context: 'site-editor',
+	} );
 
 	/**
 	 * Handles form submission and Emmet processing.
@@ -188,46 +204,44 @@ const EmmetBlocks = () => {
 	 * and inserts them into the editor.
 	 */
 	const handleSubmit = () => {
-		if (!emmetInput.trim()) return;
+		if ( ! emmetInput.trim() ) return;
 
 		try {
 			// Convert Emmet syntax to HTML using the Emmet library
-			const html = expand(emmetInput);
+			const html = expand( emmetInput );
 
 			// Parse HTML and convert to WordPress blocks
-			const blocks = parseHTMLToBlocks(html);
+			const blocks = parseHTMLToBlocks( html );
 
 			// Insert blocks into the editor if any were created
-			if (blocks.length > 0) {
-				insertBlocks(blocks);
+			if ( blocks.length > 0 ) {
+				insertBlocks( blocks );
 			}
-		} catch (error) {
-			console.error('Emmet parsing error:', error);
+		} catch ( error ) {
+			console.error( 'Emmet parsing error:', error );
 		}
 
 		// Reset modal state
-		setIsOpen(false);
-		setEmmetInput('');
+		setIsOpen( false );
+		setEmmetInput( '' );
 	};
 
-
-
 	// Don't render anything if modal is closed
-	if (!isOpen) return null;
+	if ( ! isOpen ) return null;
 
 	return (
 		<Modal
-			title={__('EmmetBlocks')}
-			onRequestClose={() => setIsOpen(false)}
+			title={ __( 'EmmetBlocks' ) }
+			onRequestClose={ () => setIsOpen( false ) }
 		>
 			<TextControl
-				label={__('Emmet Syntax')}
-				value={emmetInput}
-				onChange={setEmmetInput}
+				label={ __( 'Emmet Syntax' ) }
+				value={ emmetInput }
+				onChange={ setEmmetInput }
 				placeholder="div.container>p.hello+ul>li*3"
 			/>
-			<Button isPrimary onClick={handleSubmit}>
-				{__('Generate Blocks')}
+			<Button isPrimary onClick={ handleSubmit }>
+				{ __( 'Generate Blocks' ) }
 			</Button>
 		</Modal>
 	);
@@ -235,8 +249,8 @@ const EmmetBlocks = () => {
 
 // Register the plugin with WordPress
 // This makes the EmmetBlocks component available in the block editor
-registerPlugin('emmetblocks', {
-	render: EmmetBlocks
-});
+registerPlugin( 'emmetblocks', {
+	render: EmmetBlocks,
+} );
 
 export default EmmetBlocks;

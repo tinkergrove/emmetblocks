@@ -8,6 +8,7 @@ vendor/
 # Logs and temporary files
 *.log
 *.tmp
+*.zip
 
 # Local development
 .env
