@@ -1,0 +1,22 @@
+{
+  "name": "emmetblocks",
+  "version": "1.0.0",
+  "description": "WordPress plugin to generate block layouts using Emmet syntax",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^26.0.0"
+  },
+  "dependencies": {
+    "@wordpress/commands": "*",
+    "@wordpress/icons": "*",
+    "@wordpress/components": "*",
+    "@wordpress/element": "*",
+    "@wordpress/block-editor": "*",
+    "@wordpress/blocks": "*",
+    "emmet": "^2.4.6"
+  }
+}

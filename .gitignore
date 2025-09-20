@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build artifacts - Keep build/ folder for easy plugin installation
+# build/ is intentionally NOT ignored so users don't need to build
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Local development
+.env
+.env.local
+
+# Testing
+phpunit.xml
+tests/
+
+# KiloCode
+.kilocode/
