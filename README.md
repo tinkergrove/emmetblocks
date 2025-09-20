@@ -75,6 +75,42 @@ npm run build
 - `row>col*3>p{Lorem ipsum}` - Creates a 3-column row layout
 - `section.hero>h1{Welcome}+p{Description}` - Creates a hero section
 
+### Supported HTML Elements
+
+EmmetBlocks supports a wide range of HTML elements that map to WordPress core blocks:
+
+#### Layout Elements
+- `div`, `section`, `article`, `header`, `main`, `footer`, `aside` → **Group Block**
+- `row` → **Group Block** (with horizontal flex layout)
+- `stack` → **Group Block** (with vertical flex layout)
+
+#### Text Elements
+- `p`, `span` → **Paragraph Block**
+- `h1`, `h2`, `h3`, `h4`, `h5`, `h6` → **Heading Block**
+- `code` → **Code Block**
+
+#### Media Elements
+- `img` → **Image Block**
+- `video` → **Video Block**
+
+#### List Elements
+- `ul`, `ol`, `li` → **List Block**
+
+#### Other Elements
+- `blockquote`, `quote` → **Quote Block**
+- `col` → **Column Block**
+- `cols` → **Columns Block**
+- `sep`, `separator` → **Separator Block**
+- `sp`, `spacer` → **Spacer Block**
+
+#### Special Features
+- **CSS Classes**: `div.my-class` → Adds `my-class` to the block
+- **IDs**: `div#my-id` → Adds `my-id` as the block anchor
+- **Text Content**: `p{Hello World}` → Adds text content to the block
+- **Nesting**: `div>p+h2` → Creates nested block structures
+- **Multipliers**: `li*5` → Creates 5 list items
+- **Siblings**: `p+h2` → Creates adjacent blocks
+
 ## 📋 Requirements
 
 - **WordPress**: 6.3 or higher
