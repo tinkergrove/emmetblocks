@@ -3,7 +3,8 @@
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-Plugin-blue.svg)](https://wordpress.org/plugins/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.4+-8892BF.svg)](https://php.net/)
 [![WordPress Version](https://img.shields.io/badge/WordPress-6.3+-21759B.svg)](https://wordpress.org/)
-[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow.svg)](https://buymeacoffee.com/tinkergrove)
 
 Generate WordPress block layouts using Emmet syntax via command palette.
 
@@ -143,3 +144,11 @@ This project is licensed under the GPL v3 or later.
 If you find a bug or have a feature request, please [open an issue](https://github.com/tinkergrove/emmetblocks/issues) on GitHub.
 
 For general questions or discussions, feel free to start a discussion in the [Discussions](https://github.com/tinkergrove/emmetblocks/discussions) section.
+
+## ☕ Support Development
+
+If you find EmmetBlocks useful and would like to support its continued development, consider buying me a coffee!
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow.svg?style=for-the-badge)](https://buymeacoffee.com/tinkergrove)
+
+Your support helps maintain and improve this plugin. Thank you! 🙏

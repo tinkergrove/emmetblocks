@@ -29,6 +29,9 @@ EmmetBlocks allows you to quickly generate complex WordPress block layouts using
 * `ul.nav>li*5>a{Menu Item $}` - Creates a navigation menu with 5 items
 * `row>col*3>p{Lorem ipsum}` - Creates a 3-column row layout
 
+**Support Development:**
+If you find EmmetBlocks useful, consider [supporting development](https://buymeacoffee.com/tinkergrove). Thank you!
+
 == Installation ==
 
 1. Upload the `emmetblocks` folder to the `/wp-content/plugins/` directory
